@@ -1,0 +1,146 @@
+body{
+  margin: 0;
+  padding: 0;
+  /*font-family: "Roboto", sans-serif;*/
+}
+
+* {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.no-lspace {
+  letter-spacing: 0;
+}
+
+h1 {
+  text-align: center;
+  margin: 50px 0 !important;
+  font-weight: 100 !important;
+  font-size: 22px !important;
+  text-transform: uppercase;
+  margin: 30px 0 !important;
+}
+
+.card, .card-header {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  /*margin-bottom: 20px;*/
+}
+
+.card {
+  /*box-shadow: 0 2px 25px 0 rgba(110, 130, 208, .18);*/
+  border-bottom: 1px solid #e5e6ea !important;
+}
+
+.btn-link {
+  width: 100%;
+  height: 60px;
+  color: #000 !important;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none !important;
+}
+
+.card-body {
+  background: transparent;
+}
+
+#mySidebar {
+  box-shadow: none;
+  padding: 0px 0px 10px 10px;
+}
+
+.btn-link:after {
+  content: '\2212';
+  width: 35px;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 5px;
+  right: 15px;
+  top: 11px;
+  position: absolute;
+}
+
+.btn-link.collapsed:after {
+  content: '\002B';
+}
+
+.buttonContainer {
+  overflow: hidden;
+  padding: 15px 20px;
+  border-top: thin solid lightgray;
+  border-bottom: thin solid lightgray;
+}
+
+.buttonContainer button {
+  border: none;
+  outline: none !important;
+  background-color: transparent;
+  /* margin-bottom: 20px; */
+}
+
+#hideNav {
+  display: none;
+}
+
+.w3-container {
+  padding: 3px;
+}
+
+.product {
+  width: calc(100% / 3 - 6px);
+  float: left;
+  padding: 3px;
+}
+
+.product div {
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.product p {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.product p:first-of-type {
+  padding: 15px 15px 0 15px;
+  font-weight: bold;
+}
+
+.product p:last-of-type {
+  padding: 0 15px 25px 15px;
+}
+
+.product-collapse {
+  width: calc(100% / 2 - 6px);
+}
+
+.filters {
+  /* margin-top: 20px;
+  margin-bottom: 10px; */
+}
+
+.filters button {
+  border: thin solid lightgray;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 10px 5px 5px 5px;
+  letter-spacing: 0;
+}
+
+.filters button span {
+  padding-right: 10px;
+  font-weight: bold;
+  color: lightgray;
+}
+.filters button span:hover {
+  color: red;
+}

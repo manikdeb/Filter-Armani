@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task: Filtering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  ></script>
+    <script src="products.js"></script>
+  </head>
+  <body>
+    <h1>Filtering Products</h1>    
+    <div class="buttonContainer">
+      <button id="openNav">Show filters</button>
+      <button id="hideNav">Hide filters &times;</button>
+    </div>
+
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+      <div class="accordion" id="accordionExample">
+        
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left no-lspace" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Category
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body" id="filter-by-category">
+                <input type="checkbox" id="category1" name="category" value="Sneaker">
+                <label for="category1">&nbsp;&nbsp;Sneaker</label><br>
+                <input type="checkbox" id="category2" name="category" value="Leather">
+                <label for="category2">&nbsp;&nbsp;Leather Sneaker</label><br>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left no-lspace collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Color
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body" id="filter-by-color">
+                <input type="checkbox" id="color1" name="color" value="Gray">
+                <label for="color1">&nbsp;&nbsp;Gray</label><br>
+                <input type="checkbox" id="color2" name="color" value="Black">
+                <label for="color2">&nbsp;&nbsp;Black</label><br>
+                <input type="checkbox" id="color3" name="color" value="White">
+                <label for="color3">&nbsp;&nbsp;White</label><br>
+                <input type="checkbox" id="color4" name="color" value="Red">
+                <label for="color4">&nbsp;&nbsp;Red</label><br>
+                <input type="checkbox" id="color5" name="color" value="Brown">
+                <label for="color5">&nbsp;&nbsp;Brown</label><br>
+                <input type="checkbox" id="color6" name="color" value="Purple">
+                <label for="color6">&nbsp;&nbsp;Purple</label><br>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left no-lspace collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Size
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body" id="filter-by-size">
+                <input type="checkbox" id="size2" name="size" value="S">
+                <label for="size2">&nbsp;&nbsp;S</label><br>
+                <input type="checkbox" id="size1" name="size" value="M">
+                <label for="size1">&nbsp;&nbsp;M</label><br>
+                <input type="checkbox" id="size3" name="size" value="L">
+                <label for="size3">&nbsp;&nbsp;L</label><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="main">
+      <div class="w3-container" id="products">          
+      </div>
+    </div>
+
+    <script>
+      Array.prototype.remove = function(v) { this.splice(this.indexOf(v) == -1 ? this.length : this.indexOf(v), 1); }
+      var filters = {
+        category: [],
+        size: [],
+        color: []
+      }
+      var showingNav = false;
+
+      $(document).ready(function() {
+        function getProducts(f) {
+          $('#products').html('');
+          let filterBy = {
+            category: [],
+            size: [],
+            color: []
+          };
+          f.category.length === 0 ? filterBy.category = ['Sneaker', 'Leather'] : filterBy.category = f.category;
+          f.color.length === 0 ? filterBy.color = ['Gray', 'Black', 'White', 'Red', 'Brown', 'Purple'] : filterBy.color = f.color;
+          f.size.length === 0 ? filterBy.size = ['S', 'M', 'L'] : filterBy.size = f.size;
+          $.each(products, function(i, product) {
+            if(filterBy.category.includes(product.category) && filterBy.color.includes(product.color) && filterBy.size.includes(product.size)) {
+              $('#products').append(`
+                <div class="product `+(showingNav ? 'product-collapse' : '')+`">
+                  <div style="background-image: url('`+product.path+`')"></div>
+                  <p>`+product.name+` - `+product.path+`</p>
+                  <p>BDT `+product.price+`</p>
+                </div>
+              `)
+            }
+          });
+        }
+
+        getProducts(filters);
+
+        $('#mySidebar :checkbox').change(function () {
+          let criteria = $(this).attr('name');
+          if ($(this).is(':checked')) !filters[criteria].includes($(this).val()) && filters[criteria].push($(this).val());
+          else filters[criteria].includes($(this).val()) && filters[criteria].remove($(this).val());
+          getProducts(filters);
+        });
+        
+        $('#openNav').click(function() {
+          showingNav = true;
+          $('#main').css("marginLeft", "30%");
+          $('#mySidebar').css("width", "30%");
+          $('#mySidebar').css("display", "block");
+          $('#openNav').css("display", 'none');
+          $('#hideNav').css("display", "block");
+          $('.product').addClass('product-collapse');
+        });
+        
+        $('#hideNav').click(function() {
+          showingNav = false;
+          $('#main').css("marginLeft", "0%");
+          $('#mySidebar').css("display", "none");
+          $('#openNav').css("display", 'block');
+          $('#hideNav').css("display", "none");
+          $('.product').removeClass('product-collapse');
+        });
+      })
+    </script>
+
+  </body>
+</html>
